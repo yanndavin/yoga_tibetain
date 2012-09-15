@@ -1,0 +1,642 @@
+\documentclass[10pt]{book}
+\usepackage{xltxtra}
+\usepackage{xunicode}
+\usepackage{fontspec}
+\usepackage{url}
+\usepackage[a5paper]{geometry}
+\usepackage{slantsc}
+\usepackage{enumerate}
+\usepackage{etoolbox}
+\usepackage[stable]{footmisc} %Pour avoir les footnotes dans les "\Section{}"
+\usepackage{graphicx}
+\usepackage{color} %pour couleur première page
+
+\setromanfont[Mapping=tex-text]{Linux Libertine}
+%\setsansfont[Mapping=tex-text]{Myriad Pro}
+%\setmonofont[Mapping=tex-text]{Courier New}
+
+\pagestyle{empty}
+
+\makeatletter
+\patchcmd{\@footnotetext}{\footnotesize}{\fontsize{7pt}{8pt}\selectfont }{}{}
+
+%
+%  Parts
+%
+\def\@makeparthead#1{ \vspace*{2pc} {\centering
+ \ifnum \c@secnumdepth >\m@ne \large\uppercase{Livre \thepart}\par
+ %\vspace{10\p@} 
+\fi 
+  %\def\baselinestretch{1.0}\normalfont
+  %\large\bf \uppercase\expandafter{#1 \thepart}\par
+ \nobreak \vspace{20\p@}} }
+%
+\def\@makesparthead#1{ \vspace*{2pc} {\centering
+ \large\bf \uppercase\expandafter{#1}\par
+ \nobreak \vspace{20\p@}} }
+%
+\def\part{%
+  % \if@openright\cleardoublepage\else\clearpage\fi
+   % \thispagestyle{empty}%
+   \global\@topnum\z@
+   \@afterindenttrue
+   % \let\\\relax
+   \secdef\@part\@spart}
+%
+%  Complication is added here to allow line breaks
+%  in the part titles (via \\).
+%
+\def\@part[#1]#2{
+  \ifnum \c@secnumdepth >\m@ne
+  \refstepcounter{part}
+  \typeout{<<\thepart>>}
+  {\def\\{ }  % allow \\ in title
+   \addcontentsline{toc}{part}{\protect
+     \numberline{Part\ \thepart:}#1}}\else
+  {\def\\{ }  % allow \\ in title
+   \addcontentsline{toc}{part}{#1}}\fi
+ \addtocontents{lof}{\protect\addvspace{5\p@}}
+ \addtocontents{lot}{\protect\addvspace{5\p@}}
+ \if@twocolumn
+  \@topnewpage[\@makeparthead{#2}]
+  \else \@makeparthead{#2}
+  \@afterheading \fi}
+\def\@spart#1{\if@twocolumn \@topnewpage[\@makesparthead{#1}]
+  \else \@makesparthead{#1}
+  \@afterheading\fi}
+
+
+\renewcommand\thepart{\Roman{part}} 
+\makeatother
+
+\makeatletter
+\renewcommand{\@makeschapterhead}[1]{%
+  \vspace*{20\p@}%
+  {\parindent \z@ \raggedright
+    \normalfont
+   % \hrule                                        % horizontal line
+    \vspace{5pt}%                                 % add vertical space
+    \interlinepenalty\@M
+    \large \scshape #1\par                         % chapter title
+    \vspace{5pt}%                                 % add vertical space
+    %\hrule                                        % horizontal line
+    \nobreak
+    \vskip 20\p@
+  }}
+
+\renewcommand{\@makechapterhead}[1]{%
+  \vspace*{20\p@}%
+  {\parindent \z@ \raggedright \normalfont
+    %\hrule                                        % horizontal line
+    \vspace{5pt}%                                 % add vertical space
+    \ifnum \c@secnumdepth >\m@ne
+        \large\scshape #1%\space \thechapter % Chapter number
+        \par\nobreak
+        \vskip 20\p@
+    \fi
+    %\interlinepenalty\@M
+   % \Huge \scshape #1\par                         % chapter title
+    %\vspace{5pt}%                                 % add vertical space
+    %\hrule                                        % horizontal rule
+    %\nobreak
+    %\vskip 20\p@
+  }}
+
+\def\chapter{%
+   %\printchapternotes
+   %\if@openright\cleardoublepage\else\clearpage\fi
+   % \thispagestyle{empty}%
+   \global\@topnum\z@
+   \@afterindenttrue
+   % \let\\\relax
+   \secdef\@chapter\@schapter}
+
+\renewcommand\thechapter{\Roman{chapter}} 
+\makeatother
+
+\makeatletter
+\renewcommand{\section}{\@startsection{section}{0}{0mm}
+   {\baselineskip}
+   {\baselineskip}{\normalfont\normalsize\scshape\centering}
+}
+\renewcommand\thesection{\Roman{section}. -} 
+\makeatother
+
+\makeatletter
+\renewcommand{\subsection}{\@startsection{section}{0}{0mm}
+   {\baselineskip}
+   {\baselineskip}{\normalfont\normalsize\scshape\centering}
+}
+\makeatother
+
+\makeatletter
+\renewcommand{\subsubsection}{\@startsection{section}{0}{0mm}
+   {\baselineskip}
+   {\baselineskip}{\normalfont\normalsize\scshape\centering}
+}
+\makeatother
+
+\begin{document}
+\newcommand{\samadhi}{Samādhi}
+\newcommand{\nirvana}{Nirvāṇa}
+\newcommand{\prajnaparamita}{Prajñāpāramitā}
+\newcommand{\kaya}{Kāya}
+\newcommand{\atman}{ātman}
+\newcommand{\samsara}{Saṃsāra}
+
+\begin{center}
+\definecolor{orange}{RGB}{241,90,41}
+\pagecolor{orange}
+\huge\textbf{\textsc{Le yoga tibétain}}\\\vspace{1mm}
+\small\textsc{et les}\\\vspace{1mm}
+\huge\textbf{\textsc{Doctrines Secrêtes}}\\\vspace{3mm}
+\small\textsc{ou}\\\vspace{3mm}
+\large\textbf{Les Sept Livres de la Sagesse du Grand Sentier}\\\vspace{3mm}
+\tiny{suivant la traduction du Lâma Kasi Dawa Samdup}\\
+\vspace{0.7cm}
+\textsc{Édité par le}\\\vspace{3mm}
+\small{Dr W. Y. EVANS-WENTZ, M A., D. Litt., D. Sc.}\\\vspace{1mm}
+\tiny{du Jésus Collège d'Oxford}\\\vspace{1cm}
+\tiny{avec}\\
+\small\textsc{introductions et commentaires}\\\vspace{4mm}
+\rule{1.2cm}{0.2mm}\\\vspace{5mm}
+\small{Traduction française de Marguerite LA FUENTE}\\\vspace{0.5cm}
+\rule{1.2cm}{0.2mm}\\\vspace{5mm}
+\includegraphics[width=3cm]{logo.png}\\\vspace{5mm}
+\textsc{librairie d'amérique et d'orient}\\
+\textsc{Adrien Maisonneuve}\\
+\small J. Maisonneuve,  \tiny succ.\\
+\tiny 11, rue St-Sulpice\\
+\textsc{Paris}\\
+\textsc{1977}\\
+\end{center}
+\newpage
+%\setromanfont[Mapping=tex-text]{Linux Libertine O}
+\pagecolor{white}
+\begin{center}
+\part
+\textsc{le sentier supreme des disciples}\\
+\textsc{les preceptes des guru}\\
+\textsc{l'obeissance}\\
+Obéissance au précieux \textit{guru} !\\
+\rule{2cm}{0.2mm}\\
+
+\textsc{avant-propos}\\
+\end{center}
+
+Que celui qui désire la délivrance de cette mer des existences successives, si terrible et difficile à traverser, puisse par le moyen des préceptes enseignés par les Sages inspirés du Kargyütpa, rendre l'hommage dû à ces Maîtres dont la gloire est immaculée, dont les vertus sont inépuisables comme l'Océan, et dont la bienveillance infinie embrasse tous les êtres du passé, du présent et du futur dans l'univers entier:
+
+Pour servir à ceux qui participent à la recherche de la Divine Sagesse vont suivre, consignés par écrit, les préceptes les plus hautement estimés appelés « Le Sentier suprême, le Rosaire des Pierres Précieuses » transmis à Gampopa soit directement, soit indirectement, par la dynastie inspirée des \textsc{guru}, à cause de leur amour pour lui.
+
+\newpage
+
+\chapter*{les vingt-huit categories de preceptes de yoga}
+\section{les dix causes de regret}
+Le disciple cherchant la Libération et l'SOmniscience de l'état de Bouddha doit d'abord méditer sur ces dix choses qui sont causes de regret.
+
+\begin{enumerate}[1.-]
+\item Ayant obtenu un corps humain libre et bien doué, ce qui est difficile, ce serait une cause de regret d'effriter vainement cette vie.
+\item Ayant obtenu ce corps humain pur, libre, bien doué et difficile à obtenir, ce serait une cause de regret de mourrir comme un homme irreligieux et envahi des soucis du monde.
+\item Cette vie humaine dans le Kālī-Yuga (âge d'obscurité) étant si brève et incertaine, ce serait une cause de regret de la passer à poursuivre des buts et des recherches mondains.
+\item Son propre esprit étant de la nature du Dharma-Kāya incrée, ce serait une cause de regret de le laisser sombrer dans le marécage des illusions du monde.
+\item Le saint \textit{guru} étant le guide sur le Sentier, ce serait une cause de regret d'être séparé de lui avant d'atteindre l'Illumination.
+\item La confiance religieuse et les voeux formés constituant le moyen qui conduit à l'émancipation, ce serait une cause de regret s'ils étaient fracassés par la force incontrôlée des passions.
+\item La Parfaite Sagesse ayant été trouvée en soi-même par la vertu de la grâce du \textit{guru}, ce serait une cause de regret de la dissiper dans la jungle de la mondanité.
+\item Vendre ainsi qu'une marchandise la Sublime Doctrine des Sages, ce serait une cause de regret.
+\item Attendu que tous les êtres sont nos parents bienveillants\footnote{Du point de vue Bouddhiste autant qu'Hindou l'évolution, la transition et la renaissance ont eu lieu si interminablement, durant de si inconcevables éons, qui tous les êtres animés ont été nos parents à un moment donné. On trouve une référence à ceci dans : « \textit {Tibet's Great Yogi Milarepa} ». -P. 203. I.}, ce serait une cause de regret d'avoir de l'aversion pour eux et ainsi désavouer ou abandonner l'un deux.
+\item La fleur de la jeunesse étant la période de développement du corps, de la parole et de l'esprit, ce serait une cause de regret de la gâcher dans la vulgaire indifférence.
+\end{enumerate}
+Telles sont les dix causes de regret.
+
+\section{Les dix nécessités qui viennent ensuite}
+\begin{enumerate}[1.-]
+\item Ayant estimé ses propres capacités, il est nécessaire d'avoir une ligne d'action sûre.
+\item Pour mener à bien les commandements d'un instructeur religieux il est nécessaire d'avoir de la confiance et de la diligence.
+\item Pour éviter de se tromper en choisissant un \textit{guru}, il est nécessaire que le disciple ait la connaissance de ses propres défauts et de ses vertus.
+\item L'actuité de l'intelligence et une foi inébranlable sont nécessaires pour se mettre au diapason de l'esprit du précepteur spirituel.
+\item Une attention incessante et la vigilance d'esprit embellie par l'humilité sont nécessaires pour protéger le corps, la parole et l'esprit du mal.
+\item L'armure spirituelle et la force de l'intelligence sont nécessaires pour l'accomplissement des voeux du coeur.
+\item La libération habituelle du désir et de l'attachement sont nécessaires si l'on veut être libres d'entraves.
+\item Pour acquérir le double mérite\footnote{Le Double Mérite est exposé plus loin.} né des motifs justes et des actions justes et dédier à autrui leurs résultats, un effort incessant est nécessaire.
+\item L'esprit imbu d'amour et de compassion en pensée et acte doit toujours être dirigé vers le service de tout être animé.
+\item Par l'audition, la compréhension et la sagesse, l'on doit comprendre la nature de toutes choses de telle façon que l'on ne tombe pas dans l'erreur qui consiste à regarder la matière et les phénomènes comme réels.
+\end{enumerate}
+Telles sont les dix choses nécessaires à faire.
+
+\section{Les dix choses qui doivent être accomplies}
+\begin{enumerate}[1.-]
+\item Attache-toi à un instructeur religieux doué de pouvoir spirituel et de complète connaissance.
+\item Recherche une solitude délicieuse comblée d'influences psychiques comme ermitage.
+\item Recherche des amis dont les croyances et les habitudes sont comme les tiennes et en qui tu puisses placer ta confiance.
+\item Gardant présents à l'esprit les méfaits de la gloutonnerie, ne prends que la nourriture nécessaire pour te tenir en bonne disposition pendant le temps de ta retraite.
+\item Etudie les enseignements des grands Sages de toutes sectes, impartialement.
+\item Etudie les sciences bienfaisantes de la médecine et de l'astrologie et l'art profond des présages.
+\item Adopte le régime et la façon de vivre qui pourra te conserver en bonne santé.
+\item Adopte les pratiques de dévotion qui te conduiront à un développement spirituel.
+\item Retiens les disciples dont la foi est ferme, l'esprit plein de douceur et qui semblent être favorisés par Karma dans leur recherche de la divine Sagesse.
+\item Maintiens constamment ta conscience en éveil que ce soit en marchant, en étant assis, en mangeant et en dormant.
+\end{enumerate}
+Telles sont les dix choses qui doivent être accomplies.
+
+\section{Les dix choses qui doivent être évitées}
+\begin{enumerate}[1.-]
+\item Évite un \textit{guru} dont le coeur est appliqué à acquérir de la gloire mondaine et des possessions.
+\item Évite des amis ou des suivants qui sont nuisibles à la paix de ton esprit et à ta progression spirituelle.
+\item Évite les monastères ou les demeures où il se trouve de nombreuses personnes qui t'ennuient et te distraient.
+\item Évite de gagner ta vie par le moyen de fraude ou de vol.
+\item Évite telles actions qui blessent ton esprit et retardent ton développement spirituel.
+\item Évite telles actions légères et irréfléchies qui t'abaisseront dans l'estime d'autrui.
+\item Évite les actions inutiles.
+\item Évite de dissimuler tes propres fautes et de clamer celles des autres.
+\item Évite la nourriture et les habitudes qui ne conviennent pas à ta santé.
+\item Évite les attachements inspirés par l'avarice.
+\end{enumerate}
+Telles sont les dix choses qui doivent être évitées.
+
+\section{Les dix choses qui ne doivent pas être évitées}
+\begin{enumerate}[1.-]
+\item Les idées étant la lumière de l'esprit ne doivent pas être évitées.
+\item Les formes-pensées étant les jeux de la réalité ne doivent pas être évitées.
+\item Les passions obscurcissantes étant le moyen de réveiller le souvenir de la Divine Sagesse (qui permet de s'en délivrer) ne doivent pas être évitées (si elles sont pratiquées de façon à goûter la vie dans sa plénitude et par cela atteindre la désillusion).
+\item L'opulence étant l'engrais et l'eau de la croissance spirituelle ne doit pas être évitée.
+\item La maladie et les tribulations enseignant la pitié, ne doivent pas être évitées.
+\item Les ennemis et l'infortune étant le moyen de diriger quelqu'un vers la vie religieuse ne doivent pas être évitées.
+\item Ce qui vient par soi-même (sans être sollicité) étant un don divin, ne doit pas être évité.
+\item La raison, étant en toute action la meilleure amie, ne doit pas être évitée.
+\item Tels exercices de dévotion du corps et de l'esprit que l'on est capable d'accomplir, ne doivent pas être évités.
+\item La pensée d'aider les autres, si limitée que soit la possibilité d'aide que l'on puisse donner, ne doit pas être évitée.
+\end{enumerate}
+Telles sont les dix choses qui ne doivent pas être évitées.
+
+\section{Les dix choses que l'on doit savoir}
+\begin{enumerate}[1.-]
+\item L'on doit savoir que tous les phénomènes visibles étant illusoirs sont irréels.
+\item L'on doit savoir que l'esprit étant sans existance indépendante (séparée de l'Esprit Unique), est impermanent.
+\item L'on doit savoir que les idées s'élèvent d'une suite de causes.
+\item L'on doit savoir que le corps et la parole, étant composés des quatre éléments, sont transitoires.
+\item L'on doit savoir que l'effet des actions passées, d'où vient toute peine, est inévitable.
+\item L'on doit savoir que la douleur, étant un moyen de se convaincre de la nécessite d'une vie religieuse, est un \textit{guru}.
+\item L'on doit savoir que l'attachement aux choses du monde qui fait la prospérité matérielle est antagoniste du progrès spirituel.
+\item L'on doit savoir que l'infortune étant le moyen de conduire vers la Doctrine est aussi un \textit{guru}.
+\item L'on doit savoir qu'aucune chose existante n'a une existence indépendante.
+\item L'on doit savoir que toutes choses sont interdépendantes.
+\end{enumerate}
+Telles sont les dix choses que l'on doit savoir.
+
+\section{Les dix choses qui doivent être pratiquées}
+\begin{enumerate}[1.-]
+\item L'on doit acquérir la connaissance pratique du Sentier en le suivant et ne pas être comme la multitude (qui professe mais ne pratique pas sa religion).
+\item En quittant son propre pays et demeurant en terre étrangère, l'on doit acquérir la connaissance pratique de non-attachement\footnote{Ceci implique le non-attachement à toutes possessions mondaines, le foyer, les proches, ainsi que la tyrannie des relations et coutumes sociales qui, communément, effrite la vie dans ce que Milarepa appelait les agissements sans valeur du monde, comme il le dit si sagement : « Tous les buts terrestres n'ont qu'une fin inévitable : la souffrance. Les acquisitions finissent en dispersion, les constructions en dispersion, les rencontres en séparation, les naissances dans la mort ». Tous les grands Sages en tous pays et en toutes générations ont traversé le jardin de l'existance humaine, ont cueilli et goûté les fruits multicolores et variés de l'arbre de Vie qui croît en son centre et ont atteint comme résultat la désillusion du monde par laquelle l'homme perçoit pour la première fois cette Vision divine qui, seule, peut lui donner un contentement impérissable maintenant et à l'heure de sa mort. Dans l'Ecclesiaste, le Sage qui fut Roi d'Israëm nous dit dans un langage très semblable à celui de Milarepa : « J'ai considéré toutes les oeuvres qui sont faites sous le soleil, et voyez tout est vanité et vexation de l'esprit ». - (« Ecclesiaste » 1, 14).}.
+\item Ayant choisi un instructeur religieux, sépare-toi de l'égoïsme et suit scrupuleusement ses enseignements.
+\item Ayant acquis la discipline mentale en écoutant et méditant les enseignements religieux, ne fais pas étalage de ton perfectionnement, mais emploie-le à la réalisation de la Vérité.
+\item Lorsque l'aube de la connaissance spirituelle commence à se lever en toi, ne la néglige pas par la paresse mais cultive-la avec une vigilance incessante.
+\item Une fois l'illumination spirituelle expérimentée, communie avec elle dans la solitude, te libérant des activité mondaines de la multitude.
+\item Ayant acquis la connaissance pratique des choses spirituelles et accompli la grande Renonciation, ne permets pas à ton corps, ta parole ou ton esprit de se dérégler mais observe les trois voeux de pauvreté, de chasteté, et d'obéissance.
+\item Étant résolu à atteindre le but le plus élevé, abandonne l'égoïsme et consacre-toi au service des autres.
+\item Étant entré dans le Sentier mystique du Mantrayāna, ne permet pas à ton corps, ta parole ou ton esprit de demeurer insanctifié mais pratique le triple \textit{maṇḍala}\footnote{Un \textit{Maṇḍala} est un diagramme géométrique symbolique dans lequel des déités sont invoquées. (Voir « \textit{Tibet's Great Yogi Milarepa} » p132). Le triple \textit{Maṇḍala} est dédié aux forces spirituelles (souvent personifiées comme déités tantriques) présidant sur, ou se manifestant dans, le corps, la parole et l'esprit de l'homme ainsi que dans le Yoga de Kuṇḍalinī.}.
+\item Durant le temps de ta jeunesse ne fréquente pas ceux qui ne peuvent te diriger spirituellement, mais acquiers laborieusement une connaissance pratique aux pieds d'un \textit{guru} instruit et pieux.
+\end{enumerate}
+Telles sont les dix choses qui doivent être pratiquées.
+
+\section{Les dix choses dans lesquelles il faut persévérer}
+\begin{enumerate}[1.-]
+\item Les novices doivent acquérir la persévérance écoutant et méditant les enseignements religieux.
+\item Ayant eu une expérience spirituelle, il faut persévérer dans la méditation et la concentration mentale.
+\item Il faut persévérer dans la solitude jusqu'à ce que l'esprit ait acquis la discipline yogique.
+\item Si les processus de l'esprit sont difficiles à contrôler, persévère dans ton effort pour les dominer.
+\item S'il existe un grand engourdissement, persévère dans ton effort pour stimuler l'intelligence (ou contrôler l'esprit).
+\item Persévère dans la méditation jusqu'à ce que tu atteignes la tranquillité mentale imperturbable de Samādhi.
+\item Ayant atteint l'état de Samādhi, persévère en prolongeant sa durée et en causant son retour à volonté.
+\item Si des infortunes diverses viennent à t'assaillir, persévère dans la patience de corps, de parole et d'esprit.
+\item Si te viennent : un grand attachement, un désir ou une faiblesse mentale, persévère dans l'effort de le déraciner aussitôt qu'il se manifeste.
+\item Si la bienveillance et la pitié sont faibles en toi, persévère en dirigeant ton esprit vers la Perfection.
+\end{enumerate}
+Telles sont les dix choses dans lesquelles on doit persévérer.
+
+\section{Les dix incitations}
+\begin{enumerate}[1.-]
+\item En réfléchissant à la difficulté d'obtenir un corps humain doué et libre, puissiez-vous être incité à adopter une vie religieuse.
+\item En réfléchissant sur la mort et l'impermanence de la vie, puissiez-vous être incité à vivre pieusement.
+\item En réflechissant à la nature irrévocable des résultats qui s'élèvent inévitablement des actions, puissiez-vous être incité à éviter l'impiété et le mal.
+\item En réfléchissant sur les maux de l'existence dans la roude des existences successives, puissiez-vous être incité à rechercher l'Émancipation, la Libération.
+\item En réfléchissant aux misères que souffrent tous les êtres animés, puissiez-vous être incité à atteindre la délivrance par l'illumination de l'esprit.
+\item En réfléchissant sur la perversité et la nature illusoire de l'esprit de tout être animé, puissiez-vous être incité à écouter et méditer la Doctrine.
+\item En réfléchissant sur la difficulté de déraciner les concepts erronés, puissiez-vous petre incité à pratiquer une méditation constante (qui les dompte).
+\item En réfléchissant sur la prédominance des tendances mauvaises dans ce Kālī-Yuga (âge de ténèbres), puissiez-vous être incité à rechercher leur antidote (dans la Doctrine).
+\item En réfléchissant sur la multiplicité des infortunes dans cet âge de ténèbres, puissiez-vous être incité à persévérer (dans la recherche de l'Émencipation).
+\item En réfléchissant sur l'inutilité de l'effritement sans but de votre vie, puissiez-vous être incité à la diligence (dans l'avance sur le Sentier).
+\end{enumerate}
+Telles sont les dix incitations.
+
+\section{Les dix erreurs}
+\begin{enumerate}[1.-]
+\item La faiblesse de la foi s'alliant à la force de l'intelligence peuvent conduire à l'erreur des paroles inutiles (du bavardage).
+\item La force de la foi s'alliant à la faiblesse de l'intelligence peuvent conduire à l'erreur du dogmatisme étroit.
+\item Un grand zèle sans l'instruction religieuse adéquate peut conduire à l'erreur d'aller aux extrêmes erronés (ou suivre des voies menant à l'erreur).
+\item La méditation sans une préparation suffisante dans l'écoute et l'étude de la Doctrine peut conduire à l'erreur de se perdre dans les ténèbres de l'inconscience\footnote{Ceci fait allusion au chaos mental ou à l'illusion qui sont les anti-thèses de la discipline mentale acquise par une juste pratique du yoga sous la direction d'un sage \textit{guru}.}.
+\item Sans une compréhension pratique et adéquate de la Doctrine l'on est apte à tomber dans l'erreur de l'orgueil religieux.
+\item Tant que l'esprit n'est pas entraîné au désintéressement et à la compassion infinie, l'on est apte à tomber dans l'erreur de rechercher la libération pour soi seul.
+\item A moins que toute ambition soit déracinée, l'on est apte à tomber dans l'erreur de se laisser dominer par des motifs mondains.
+\item En permettant à des admirateurs crédules et vulgaires de s'agglomérer autour de vous, il est possible de tomber dans l'erreur de la suffisance et l'orgueil vulgaires.
+\item En se vantant de son savoir et de ses pouvoirs occultes, l'on est apte à tomber dans l'erreur d'exhiber fièrement son habilité dans les rites\footnote{Aucun vrai maître de sciences occultes ne se permet de se vanter ou de faire étalage de ses pouvoirs yogiques. C'est seulement dans l'initiation secrète des disciples, ainsi qu'il en fut pour Marpa, qu'ils sont divulgès, si toutefois cela arrive. (Voir « Tibet's Great Yogi Milarepa », p.p. 132-3, 154-5, 163).)}.
+\end{enumerate}
+Telles sont les dix erreurs.
+
+\section{Les dix similitudes qui peuvent leurrer}
+\begin{enumerate}[1.-]
+\item Le désir peut être pris à tort pour de la confiance, de la foi.
+\item L'attachement peut être pris à tort pour de la bienveillance et de la compassion.
+\item La cessation du processus de pensée peut être pris à tort pour la quiescence de l'esprit infini qui est le but véritable.
+\item Les perceptions des sens (ou phénomènes) peuvent être prises à tort pour des révélations (ou aperçus) de la Réalité.
+\item Un simple aperçu de la Réalité peut être pris à tort pour une complète réalisation.
+\item Ceux qui professent extérieurement leur religion mais ne la pratiquent pas, peuvent être pris à tort pour de véritables dévots.
+\item Des esclaves de leurs passions peuvent être pris à tort pour des maîtres du yoga, qui se sont libérés eux-mêmes de toute loi conventionnelle.
+\item Des actions accomplies dans un intêret personnel peuvent être prises à tort comme des actions altruistes.
+\item Des méthodes de duplicité peuvent être prises à tort pour de la prudence.
+\item Des charlatans peuvent être pris à tort pour des Sages.
+\end{enumerate}
+Telles sont les dix similitudes qui peuvent leurrer.
+
+\section{Les dix choses qui ne trompent pas}
+\begin{enumerate}[1.-]
+\item En se libérant de l'attachement à tout objet et, étant ordonné bhikṣu\footnote{Bhikṣu (Sancrit) - Bhikkhu (Pali) : un membre du Sangha, l'ordre Bouddhiste de ceux qui suivent le Sentier de la Renonciation au monde.} dans l'Ordre Saint, abandonnant sa maison et vivant dans l'état sans foyer, on ne se trompe pas.
+\item En vénérant son maître spirituel, on ne se trompe pas.
+\item En étudiant soigneusement la Doctrine, écoutant des commentaires sur elle, y réfléchissant et la méditant, on ne se trompe pas.
+\item En entretenant des aspirations élevées, observant une conduite modeste, on ne se trompe pas.
+\item En ayant des vues libérales (au point de vue religieux) et cependant en observant fermement ses voeux religieux, on ne se trompe pas.
+\item En ayant grande intelligence et petite fierté, on ne se trompe pas.
+\item En étant riche de connaissances religieuses et méditant diligemment sur elles, on ne se trompe pas.
+\item En ayant une instruction religieuse profonde combinée avec la connaissance des choses spirituelles et l'absence d'orgueil, on ne se trompe pas.
+\item En étant capable de passer toute sa vie dans la solitude, on ne se trompe pas.
+\item En se dévouant sans égoïsme à faire du bien aux autres au moyen de sages méthodes, on ne se trompe pas.
+\end{enumerate}
+Telles sont les dix choses qui n'égarent pas.
+
+\section{Les treize faillites lamentables}
+\begin{enumerate}[1.-]
+\item Si, étant né être humain, l'on ne prête aucune attention à la Sainte Doctrine, on ressemble à l'homme qui reviendrait les mains vides d'une terre riche en pierres précieuses et cela est une faillite lamentable.
+\item Si, ayant passé le seul de l'Ordre Saint, on retourne à la vie de chef de famille, on ressemble au papillon plongeant dans la flamme de la lampe, et ceci est une faillite lamentable.
+\item Vivre près d'un sage et demeurer dans l'ignorance c'est comme un homme mourant de soif sur le rivage d'un lac, et ceci est une faillite lamentable.
+\item Connaître les principes de morale et ne pas les appliquer à guérir les passions obscurcissantes, c'est être comme un homme malade portant un sac de médicaments sans en user, et ceci est une faillite lamentable.
+\item Prêcher la religion et ne pas la pratiquer, c'est être comme un perroquet qui récite une prière, et ceci est une faillite lamentable.
+\item Donner en aumônes et en charités des choses obtenues par vol, brigandage, ou tromperie, est comme l'éclair frappant la surface de l'eau, et ceci est une faillite lamentable\footnote{Suivant cette image, l'éclair en frappant l'eau manque son but qui est d'incendier l'objet frappé, ainsi fait-on en distribuant en charité les choses acquises déshonnêtement}.
+\item Offrir à des déités de la viande en tuant des êtres animés, c'est comme si l'on offrait à une mère la chait de son propre enfant, et ceci est une faillite lamentable\footnote{Tous les êtres vivants sont parties inséparables du Tout Unique, de sorte que tout mal ou toutes souffrance infligée au microcosme affecte le macrocosme. En ceci les Sages de Kargyüpta se montrent unis à la grande Doctrine compatissante de Ahiṃsa (non-violence) préconisée par l'Hindouïsme, le Bouddhisme, le Jaïnisme, le Taoïsme et le Soufisme.}.
+\item Exercer sa patience pour des fins purement égoïstes plutôt que pour rendre service aux autres, c'est être comme le chat exerçant sa patience afin de tuer un rat, et ceci est une faillite lamentable.
+\item Accomplir des actions méritoires à la seule fin d'obtenir de la gloire et les louanges du monde est comme échanger la pierre mystique qui comble les souhaits\footnote{La pierre du mythe oriental dont le nom sanscrit est Cintāmaṇi qui, comme la lampe d'Aladin, exauce tous les souhaits formulés par son possesseur.}.
+\item Si, après avoir entendu beaucoup de la Doctrine, on garde une nature inharmonieuse, on est comme un médecin conservant une maladie chronique, et ceci est une faillite lamentable.
+\item Être savant en préceptes mais ignorant des expériences spirituelles qui viennent de leur aplication, c'est être comme un homme riche qui a perdu la clé de son trésor, et ceci est une faillite lamentable.
+\item Essayer d'expliquer aux autres des doctrines dont l'on n'a pas soi-même la maîtrise complète, c'est agir comme un aveugle conduisant d'autres aveugles, et ceci est une faillite lamentable.
+\item Tenir les expériences résultant d'un premier stage de méditation pour être celles du stage final, c'est être comme une homme qui confond le cuivre avec de l'or, et ceci est une faillite lamentable.
+\end{enumerate}
+Telles sont les treize faillites lamentable.
+
+\section{Les quinze faiblesses}
+\begin{enumerate}[1.-]
+\item Un dévot religieux montre de la faiblesse s'il permet à son esprit d'petre obsédé de pensées mondaines tandis qu'il demeure dans la solitude.
+\item Un dévot religieux qui se trouve chef d'un monastère montre de la faiblesse s'il recherche son propre intérêt (putôt que celui de l'Ordre).
+\item Un dévot religieux montre de la faiblesse s'il est attentif dans l'observance de la discipline morale mais manque de contrôle moral.
+\item Celui qui est entré dans le Sentier Juste et reste attaché aux sentiments mondains d'attraction et de répulsion, montre de la faiblesse.
+\item Celui qui, ayant renoncé aux choses du monde et étant entré dans l'Ordre saint, soupire après l'acquisition des mérites, montre de la faiblesse.
+\item Celui qui, ayant eu un aperçu de la Réalité, ne persévère pas dans le sadhana (méditation yogique) jusqu'à l'aube de la Complète Illumination, montre de la faiblesse.
+\item Le dévot religieux qui entre dans le Sentier, puis se montre incapable d'y marcher, montre de la faiblesse.
+\item Celui qui n'ayant d'autre occupation que la dévotion religieuse est incapable d'arracher de lui les actions indignes, montre de la faiblesse.
+\item Il montre de la faiblesse, celui qui a choisi la vie religieuse et hésite à entrer dans la retraite absolue alors qu'il sait que la nourriture et les choses nécessaires lui seront données sans qu'il les demande.
+\item Un dévot religieux qui exhibe ses pouvoirs occultes en pratiquant des exorcismes ou en éloignants des maladies, montre de la faiblesse.
+\item Un dévot religieux montre de la faiblesse s'il échange les vérités sacrées contre de la nourriture ou de l'argent.
+\item Celui qui s'est voué à la vie religieuse montre de la faiblesse s'il se loue lui-même adroitement en même temps qu'il méprise les autres.
+\item Un homme religieux qui prêche sur un ton élevé aux autres et ne vit pas lui-même une vie élevée, montre de la faiblesse.
+\item Celui qui, professant la religion, est incapable de vivre dans la solitude en face de lui-même et qui, en même temps, ne sait pas se rendre agréable dans la compagnie des autres, montre de la faiblesse.
+\item Un dévot religieux montre de la faiblesse s'il n'est pas indifférent au confort comme à la privation.
+\end{enumerate}
+Telles sont les quinze faiblesses.
+
+\section{Les douze choses indispensables}
+\begin{enumerate}[1.-]
+\item Il est indispensable d'avoir une intelligence douée du pouvoir de la compréhension et de l'application de la Doctrine à ses propres besoins.
+\item Depuis le tout commencement (d'une vie religieuse) il est indispensablement nécessaire d'avoir la plus profonde aversion pour l'interminable série des morts et des re-naissances répétées.
+\item Un \textit{guru} capable de te guider sur le Sentier de la Libération est également indispensable.
+\item La diligence combinée avec la fermeté et l'invulnérabilité aux tentations sont indispensables.
+\item Une persévérance incessante à neutraliser les résultats des mauvaises actions par l'accomplissement de bons actes et l'observance du triple voeu de maintenir la chasteté du corps, la pureté de l'esprit et le contrôle de la parole sont indispensables.
+\item Une philosphie assez compréhensive pour embrasser le savoir en entier est indispensable.
+\item Une méthode de méditation donnant le pouvoir de concentrer l'esprit sur quelque chose que ce soir est indispensable.
+\item Un art de vivre qui permettra d'utiliser chaque activité (de corps, d'esprit et de parole) comme une aide sur le Sentier est indispensable.
+\item Une méthode de pratiquer les enseignements choisis pour les rendre plus que de simples mots est indispensable.
+\item Des instructions particulières (par un sage \textit{guru}) qui permettront d'éviter les voies d'erreur, les tentations, les pièges et les dangers, sont indispensables.
+\item Une foi indomptable combinée avec une suprême sérénité d'esprit sont indispensables au moment de la mort.
+\item Comme résultat d'avoir appliqué pratiquement les enseignements choisis, l'atteinte des pouvoirs spirituels capable de transmuter le corps, la parole et l'esprit en leur essence divine est indispensable\footnote{Comme résultat direct de l'application de la Doctrine, le dévot atteindra le pouvoir spirituel du Yoga par lequel le corps physique grossier est transmuté en corps radieux de gloire, appelé ailleurs dans notre texte le « corps d'arc en ciel », la parole humaine, si souvent égarée, en parole divine infaillible et l'esprit humain obscurci en esprit supra-mondial d'un Bouddha.}.
+\end{enumerate}
+Telles sont les douze choses indispensables.
+
+\section{Les six signes de l'homme supérieur}
+\begin{enumerate}[1.-]
+\item N'avoir que peu de fierté et pas d'envie, est le signe de l'homme supérieur.
+\item N'avoir que peu de désirs et être satisfait de choses simples, est le signe de l'homme supérieur.
+\item Manquer d'hypocrisie et de fourberie, est le signe de l'homme supérieur.
+\item Régler sa conduite suivant la loi de cause et effet aussi soignesement que l'on préserve les pupilles de ses yeux, est le signe de l'homme supérieur.
+\item Être fidèle à ses engagements et ses obligations, est le signe de l'homme supérieur.
+\item Être capable de conserver des amitiés alors (qu'au même moment) on regarde tous les êtres avec impartialité, est le signe de l'homme supérieur.
+\item Permettre aux autres de triompher acceptant pour soi la défaite, est le signe de l'homme supérieur.
+\item Différer de la multitude en toute pensée et toutes actions, est le signe de l'homme supérieur.
+\item Observer fidèlement et sans tirer vanité ses voeux de chasteté et de piété, est le signe de l'homme supérieur.
+\end{enumerate}
+Tels sont les dix signes de l'homme supérieur, leurs opposés sont les dix signes de l'homme inférieur.
+
+\section{Les dix choses inutiles\footnote{Elles sont inutiles dans le sens indiqué par Milarepa lorsqu'il vint à réaliser que la vie humaine ne devait pas être effritée dans les agissements du monde spirituellement sans profit. (Voir « \textit{Tibet's Great Yogi Milarepa} », pp. 176-7, 179-80). Le dixième aphorisme de cette serie ayant été involontairement omis par le scribe du manuscrit tibétain, nous lui avons substitué une adaptation personnelle basée sur la doctrine de la non-valeur des actions terrestres ainsi qu'elle fut énoncée par Milarepa et sur laquelle est basée cette catégorie des dix choses inutiles. Ces enseignements, s'ils sont appliqués pratiquement, tels que ceux du Bouddha et du Christ auraient comme résultat la cessation de toute action ayant un but égoïste plutôt qu'altruiste. La suprême doctrine de renoncement aux fruits de l'action est également sous-jacente dans toute la « \textit{Bhagavad-Gītā} ».}}
+
+\begin{enumerate}[1.-]
+\item Notre corps étant illusoire et transitoire, il est inutile de lui accorder une attention excessive.
+\item Considérant que lorsque nous mourons nous devons partir les mains vides et qu'au lendemain de notre mort notre dépouille est expulsée de notre propre maison, il est inutile de travailler et souffrir de privations afin de se construire une demeure dans ce monde.
+\item Considérant que lorsque nous mourons nos descendants (s'ils sont ignorants spirituellement) sont incapables de nous donner la moindre assistance, il est inutile pour nous de leur léguer des richesses temporelles (plutôt que spirituelles) même par affection\footnote{Effriter les moments précieux de la vie en entassant des biens périssables du monde, espérant par cela avoir un bénéfice pour soi ou sa famille n'est pas sage. Le temps passé sur la terre doit être consacré à l'obtention des richesses impérissables qui aident à vivre et à mourir. Ce sont de telles richesses que les parents doivent léguer à leurs enfants plutôt que d'intensifier et prolonger leur esclavage dans l'existance du Saṃsāra. Ce précepte est développé dans les Préceotes 5 et 6 suivants.}.
+\item Considérant que lorsque nous mourons nous devons suivre notre chemin seul et sans parents ni amis, il est inutils d'avoir consacré du temps (qui eut dû être employé à obtenir l'Illumination) à leur humeur ou leur service ou en les inondant d'affection\footnote{Le temps consacré à la famille et aux amis ne doit pas être employé seulement en leur montrant de la courtoisie et de l'affection, mais surtout dans l'intention de les guider vers le Sentier de la grande Délivrance où tous les êtres sont unis par la même parenté. Toute relation sociale conventionnelle du plan humain étant illusoire, il est inutile pour un yogin de dissper sur elle les moments précieux de son existance incarnée.}.
+\item Considérent que nos déscendants eux-mêmes sont sujets à la mort et que, quels que soient les biens du monde que nous puissions leur léguer, ils seront perdus pour eux, il est inutile de faire don des choses du monde.
+\item Considérant que lorsque la mort vient on doit abandonner même sa propre demeure, il est inutile de consacrer sa vie à l'acquisition des choses du monde.
+\item Considérant que l'inobservance des voeux religieux aura comme résultat de conduire à des étants d'existence misérables, il est inutile d'entrer dans l'Ordre si l'on ne vit pas une vie sainte.
+\item Avoir entendu la Doctrine et y avoir pensé sans la pratiquer et acquérir des pouvoir spirituels pour en être assisté au moment de la mort est inutile.
+\item Il est inutile d'avoir vécu même longtemps avec un maître spirituel si, manquant d'humilité et de dévotion, l'on est ainsi incapable de se développer spirituellement.
+\item Considérant que tous les phénomènes apparents ou existants sont toujours transitoires, changeants, instables et plus particulièrement que la vie du monde ne peut fournir ni réalité ni gain permanent, il est inutile de se consacrer aux actes du monde sans profit plutôt qu'à la recherche de la Divine Sagesse.
+\end{enumerate}
+Telles sont les dix choses inutiles.
+
+\section{Les dix embarras causés par soi-même}
+\begin{enumerate}[1.-]
+\item S'établir dans la vie familiale sans moyens d'existance, c'est se causer soi-même un ennui comme le ferait un idiot mangeant de l'aconit.
+\item Vivre une vie franchement mauvaise et ignorer la Doctrine, c'est se causer soi-même un ennui comme le ferait un fou sautant dans un précipice.
+\item Vivre hypocritement c'est se causer soi-même un ennui comme le ferait une personne versant du poison dans sa nourriture.
+\item Manquer de fermeté d'esprit et cependant essayer d'agir comme chef de monastère c'est se causer soi-même un ennui comme une faible vieille femme qui essaierait de garder un troupeau.
+\item Se consacrer entièrement à des ambitions égoïstes et ne pas lutter pour le bien des autres c'est se causer soi-même un ennui comme le ferait un aveugle qui se ferait perdre dans un désert.
+\item Entreprendre des tâches difficiles sans avoir la possibilité de les accomplir, c'est se causer soi-même un ennui comme le ferait un homme affaibli essayant de porter une lourde charge.
+\item Transgresser les préceptes de Bouddha ou d'un saint \textit{guru} par l'orgueil et satisfaction de soi, c'est se causer soi-même un ennui comme le ferait un roi suivant une politique pervertie.
+\item Perdre son temps à flâner dans les villes et les villages au lieu de le consacrer à la méditation s'est se causer soi-même un ennui comme le fait un cerf descendant dans la vallée au lieu de rester dans la sécurité des montagnes.
+\item Être absorbé dans la poursuite des choses du monde plutôt qu'au développement de la Divine Sagesse, c'est se causer soi-même un ennui comme le ferait un aigle brisant son aile.
+\item S'approprier sans scrupule des offrandes qui ont été destinées au \textit{guru} ou à la Trinité\footnote{La Trinité Bouddhique est le Bouddha, le Dharma (ou Écritures), et le Sangha (ou ordre). Ni \textit{guru}, ni moines, dans un communauté Bouddhiste ou Hindoue n'ont le droit de demander aucune forme de paiement en retour de leurs offices religieux. Leurs disciples laïques étant tenus à les pourvoir du nécessaire, leur font des offrandes volontaires principalement sous forme de nourriture ou de vêtements, et parfois sous forme de propriétés données à leurs āśramas, monastères ou temples. Suivant la règle des moines Bouddhistes, aucun membre du Sangha ne doit toucher d'argent, mais parfois, de nos jours, cette règle n'est pas observée et les offrandes comprennent parfois de l'argent destiné à une oeuvre pieuse comme la construction d'un stupa, la copie d'un manuscrit, la réparation d'une oeuvre d'art, etc.}, c'est se causer soi-même un ennui comme le ferait un enfant avalant des charbons ardents\footnote{Le mauvais karma résultant de cet acte sera aussi douloureux spirituellement que les charbons ardents dans la gorge, le seraient physiquement.}.
+\end{enumerate}
+Tels sont les dix embarras causés par soi-même.
+
+\section{Les dix choses bénéfiques}
+\begin{enumerate}[1.-]
+\item On fait une chose bienfaisante pour soi, en abandonnant les conventions mondaines et se consacrant au Saint Dharma.
+\item On fait une chose bienfaisante pour soi en quittant sa demeure et sa famille et s'attachant à un \textit{guru} d'un caractère vraiment saint.
+\item On fait une chose bienfaisante pour soi en abandonnant les activités du monde et se consacrant aux trois activités religieuses : écouter, réfléchir et méditer (sur les enseignements choisis).
+\item On fait une chose bienfaisante pour soi, en délaissant les relations sociales et demeurant seul dans la solitude.
+\item On fait une chose bienfaisante pour soi, en renonçant au désir de luxe et d'aisance pour endurer la privation.
+\item On fait une chose bienfaisante pour soi, en se contentant de choses simples et se libérant de la soif des possessions du monde.
+\item On fait une chose bienfaisante pour soi, en formant la résolution, et s'y tenant fermement, de ne pas profiter des autres.
+\item On fait une chose bienfaisante pour soi, en se libérant du désir des plaisirs passagers de cette vie et se dévouant à la réalisation du bonheur permanent du Nirvāṇa.
+\item On fait une chose bienfaisante pour soi, en évitant que les trois portes du savoir (le corps, la parole et l'esprit) ne demeurent indisciplinés spirituellement, et en acquérant par leur juste emploi le Double Mérite.
+\end{enumerate}
+Telles sont les dix choses bénéfiques.
+
+\section{Les dix meilleurs choses}
+\begin{enumerate}[1.-]
+\item Pour la moindre intelligence la meilleure chose est d'avoir foi dans la loi de cause et d'effet.
+\item Pour une intelligence ordinaire la meilleure chose est de reconnaître en elle, comme en dehors d'elle, le jeu de la loi des opposés\footnote{Une traduction plus littérale, mais moins intelligible au lecteur inaccoutumé aux pensers profonds des métaphysiciens tibétains, peut être celle-ci : « Pour celui d'esprit (ou vision intérieure spirituelle) moyen, la meilleure chose est de reconnaître les phénomènes externes et internes (tels qu'ils sont vus) dans les quatre aspects (ou unions) des phénomènes et des noumènes ». Une telle analyse se base sur la réalisation que tous les phénomènes, visibles ou invisibles, ont leur source nouménales dans l'Esprit Cosmique, origine de toutes choses existantes. « Les quatre aspects (ou unions) des phénomènes et noumènes » sont : 1) Phénomènes et Vide (Sancrit : \textit{sunyatā}) ; 2) Clarté et Vide; 3) Joie et Vide; 4) Conscience et Vide. Sur chacune de ces « unions » un vaste traité pourrait être écrit. Nous pouvons dire ici brièvement que Phénomènes, Clarté, Joie et Conscience représentent quatre aspects des phénomènes en opposition à leurs noumènes ou vides correspondants. Le \textit{sunyatā} (Tib. : \textit{Strong-pa-nyid}) le Vide, la Source Ultime de tous phénomènes étant sans attributs ou qualités est humainement inconcevable. Dans la philosophie du Mahāyāna il symbolise l'Absolu, le « Cela qui est » des Védantistes, la Réalité Une qui est l'Esprit.}.
+\item Pour une intelligence supérieure la meilleure chose est d'avoir la pleine compréhension de l'inséparativité du connaisseur, de l'objet de la connaissance et de l'acte de connaître\footnote{Il est courant pour le \textit{guru}, un peu à la manière des \textit{gurus} japonais du Zen, de poser des problèmes au śiṣya ou disciple sous la forme d'une série de questions interdépendantes telles que : Celui qui sait est-il autre que l'objet du savoir ? L'objet du savoir est-il autre que l'acte du savoir ? L'acte du savoir est-il autre que le savoir ? Des séries de questions semblables sont données dans l\textit{Épitome du Grand Symbole.}}.
+\item Pour une moindre intelligence la meilleure méditation est la complète concentration d'esprit sur un objet unique.
+\item Pour une intelligence ordinaire la meilleure méditation est une concentration d'esprit soutenue sur les deux concepts dualistes (du phénomène et du noumène, et de la conscience et l'esprit).
+\item Pour une intelligence supérieure la meilleure méditation est de demeurer dans la quiétude mentale, l'esprit vide de tout processus d'idée, sachant que le méditant, l'objet de méditation et l'acte de méditer consistuent une unité inséparable.
+\item Pour une moindre intelligence la meilleure pratique religieuse est de vivre en stricte conformité avec la loi de cause et effet.
+\item Pour une ordinaire intelligence la meilleure pratique religieuse est de considérer toutes choses objectives comme si elles étaient des images vues en rêve ou produites par magie.
+\item Pour une intelligence supérieure la meilleure pratique religieuse est de s'abstenir de tout désir ou action mondains\footnote{Ceci est une autre façon d'énoncer la règle d'un Karma Yogin « être libre de désirs mondains et détaché des fruits de l'action ».} (considérant toute chose du Saṃsāra comme si elle était inexistante).
+\item Pour ceux des trois grades d'intelligence la meilleure indication de progrès spirituel est la diminution graduelle des passions obscurcissantes et de l'égoïsme.
+\end{enumerate}
+Telles sont les dix meilleures chose.
+
+\section{Les dix graves erreurs}
+\begin{enumerate}[1.-]
+\item Pour un dévot religieux suivre un charlatant hypocrite au lieu d'un \textit{guru} qui pratique la Doctrine est une grave erreur.
+\item Pour un dévot religieux s'appliquer aux vaines sciences du monde plutôt que rechercher l'enseignement secret choisi des grands Sages, est une grave erreur.
+\item Pour un dévot religieux faire des plans à lointaine échéance comme s'il allait établir une résidence permanente (dans ce monde) plutôt que vivre comme si chaque jour était le dernier qu'il ait à vivre, est une grave erreur.
+\item Pour un dévot religieux prêcher la Doctrine à la multitude (avant d'en avoir réalisé la vérite) au lieu de méditer sur elle (et éprouver sa vérité) dans la solitude, est une grave erreur.
+\item Pour un dévot religieux entasser des richesses comme un avare au lieu de les offrir à la religion et la charité, est une grave erreur.
+\item Pour un dévot religieux laisser aller son corps, sa parole et sa pensée à la honte de la bébauche plutôt que d'observer scrupuleusement les voeux (de pureté et chasteté) est une grave erreur.
+\item Pour un dévot religieux passer sa vie entre les espérances et les craintes du monde au lieu de gagner la compréhension de la Réalité, est une grave erreur.
+\item Pour un dévot religieux essayer de réformer les autres au lieu de se réformer lui-même, est une grave erreur.
+\item Pour un dévot religieux lutter pour obtenir des pouvoirs temporels plutôt que de cultiver ses propres pouvoirs spirituels, est une grave erreur.
+\item Pour un dévot religieux être paresseux et indifférent au lieu de persévérer, quand toutes les circonstances favorables pour l'avancement spirituel sont réunies, est une grave erreur.
+\end{enumerate}
+Telles sont les dix graves erreurs.
+
+\section{Les dix choses nécessaires}
+\begin{enumerate}[1.-]
+\item Depuis le tout commencement (de sa carrière religieuse) on doit avoir une si profonde aversion pour la succession continuelle des morts et des naisances (aux-quelles sont sujets tous ceux qui n'ont pas atteint l'Illumination) que l'on doit souhaiter s'en échappter comme un cerf fuit la captivité.
+\item La chose nécessaire qui vient ensuite est la persévérance si entière, que l'on ne regrette pas de perdre la vie (dans la recherche de l'illumination), ainsi qu'un père de famille qui laboure son champ ne regrette pas son travail, même s'il doit mourir le lendemain.
+\item La troisième chose nécessaire est d'avoir l'esprit joyeux comme celui d'un homme qui a accompli une grande action à longue portée.
+\item On doit aussi comprendre que, ainsi que pour un homme dangereusement blessé par une flèche, on ne doit pas perdre un moment du temps qui passe.
+\item On doit avoir la capacité de fixer son esprit sur une pensée unique, ainsi que le fait une mère qui a perdu son seul fils.
+\item Une autre chose nécessaire est de comprendre qu'il n'y a aucun besoin de faire quoi que ce soit\footnote{Le but d'un yogi est le calme absolu du corps, de la parole et de l'esprit suivant l'ancien précepte yogi « Sois calms et sache que tu es Cela ». Les Écritures hébraïques donnent le même enseignement dans l'aphorisme connu « Demeure immobile et connais que je suis Dieu ». (Psaume XLVI, 10).} ainsi que le gardien d'un troupeau, dont le bétail a été emmené par une troupe ennemie, comprend qu'il ne peut rien faire pour le ravoir.
+\item Il est d'une nécessité primondiale de désirer la Doctrine comme un homme affamé désire la bonne nourriture.
+\item On doit avoir confiance en sa propre capacité mentale ainsi qu'un homme fort a foi dans sa force pour conserver une pierre précieuse qu'il a trouvé.
+\item On doit démasquer l'illusion du dualisme ainsi qu'on le ferait pour la fausseté d'un menteur.
+\item On doit avoir confiance en « Cela qui est » (comme étant le seul refuge) ainsi qu'un corbeau épuisé loin du rivage a confiance dans le mat du navire sur lequel il se repose.
+\end{enumerate}
+Telles sont les dix choses nécessaires.
+
+\section{Les dix choses superflues}
+\begin{enumerate}[1.-]
+\item Si la nature vide de l'esprit a été réalisée, il n'est plus nécessaire d'écouter ou de méditer des enseignements religieux\footnote{La réalisation de la nature vide de l'esprit est obtenue par la maîtrise du yoga de la Doctrine du Vide qui montre que l'Esprit, la Seule Réalité est la source nouménale de tous phénomènes, et, quétant non sangsarique (c-à-d. ne dépendant pour son existence d'aucune apparence objective ni même des formes-pensées ou processus de pensées) il est le Sans-qualités, le Sans-attributs et donc la Vacuité. Une fois arrivé à cette réalisation, le yogin n'a plus besoin de continuer à entendre ou méditer les enseignements religieux car ceux-ci ne sont que des guides vers le grand but du yoga qu'il a atteint.}.
+\item Si la nature impolluable de l'intelligence est réalisée, il n'est plus nécessaire de chercher l'absolution de ses péchés\footnote{Suivant « The Awakening of Faith » (l'Éveil de la foi) par Aśvaghosa l'un des plus illustres Docteurs du Mahāyāna : « L'esprit depuis son origine est d'une nature pure, mais de même qu'il a son aspect limité qui est souillé par les vues limitées, il existe de lui un aspect souillé. Et bien qu'il y ait cette souillure, la nature originelle pure demeure éternellement inchangée ». Ainsi qu'ajoute Aśvaghosa ce n'est qu'un esprit illuminé ayant réalisé la nature impolluable de l'esprit (ou intelligence) primondial qui peut comprendre ce mystère. (Tr. de Timothy Richard's « The Awakening of Faith » - Shanghaï 1907 -p 13 et tr. Prof D. T. Suzuki - Chicago 1900, p. 79 - 80 ). Aussi pour celui qui sait que les souillures du monde n'ont, comme le monde lui-même, aucune réalité, faisant partie de la grande illusion ou Māyā, quel besoin y a-t-il d'absolution de péché. De la même façon le précepte suivant enseigne : pour celui qui demeure dans l'état de quiétude mentale, qui est l'état d'Illumination, tous les concepts illusoires d'esprit limité, de péché et d'absolution disparaissent comme les brouillards du matin au lever du soleil.}.
+\item Pas plus que l'absolution n'est nécessaire pour celui qui demeure dans l'état de quiétude mentale.
+\item Pour celui qui a atteint l'état de Pureté sans mélange, il n'est pas nécessaire de méditer sur le Sentier ou les méthodes, de la parcourir (car il est arrivé au but).
+\item Si la nature irréelle (ou illusoire) des connaissances est réalisée, il n'est pas nécessaire de méditer sur l'état de non-connaissance\footnote{Ici encore on doit se référer à la Doctrine du Vide (de l'Esprit) pour bien comprendre ce précepte. L'état de non-connaissance appelé autrement l'état réel de l'esprit est un état de conscience sans modification, comparable à un océan calme et illimité. Dans l'état de conscience modifié inséparable de l'esprit limité microcosmique, cet océan apparaît illusoirement sillonné de vagues qui sont les concepts illusoires nés de l'existence sangsarique. 
+Ainsi qu'il est dit ailleurs dans « The Awakening of Faith » d'Aśvaghosa (tr. Richard, p. 12) : « Nous devons savoir que tous les phénomènes sont créés par les notions imparfaites de l'esprit limité, donc toute existence est comme une réflection dans un miroir, sans substance et seulement un phantasme de l'esprit. Lorsque l'esprit limité agit, toutes sortes de choses s'éveillent; lorsque l'esprit limité cesse d'agir, toutes sortes de choses cessent ». En même temps que la réalisation de l'État Réel dans lequel l'esprit est en quiétude complète et dénué de processus de pensée et des concepts de l'esprit limité, le yogin réalise la nature irréelle des connaissances et n'a dès lors plus besoin de méditer sur l'état de non-connaissance.}.
+\item Si la non-réalité (ou nature illusoire) des passions obscurcissantes est réalisée, il n'est pas nécessaire de rechercher leur antidote.
+\item Si tous les phénomènes sont connus omme illusoires, il n'est pas nécessaire de rechercher ou rejeter quoi que ce soit\footnote{Car suivant la doctrine de Māyā (illusion), rien de ce qui a une existence illusoire (phénoménale) n'est réel.}.
+\item Si le chagrin et l'infortune sont reconnus pour être des bénédictions, il est inutile de rechercher le bonheur.
+\item Si la nature non-née (ou incrée) de sa propre conscience est réalisée, il n'est pas nécessaire de pratiquer le transfert de conscience\footnote{La conscience ou l'esprit étant primordialement du Non-né et Non-crée ne peut être transférée. C'est seulement à la conscience dans son aspect limité ou microcosmique ainsi qu'elle est manifestée dans le Saṃsāra ou Royaume d'Illusions que l'on peut appliquer le terme transfert. Dans le Non-né, dans l'État Réel ou le Saṃsāra est outre-passé, le temps et l'espace qui sont du domaine de l'Illusion n'existent pas. Comment alors le Non-né pourrait-il être tranféré puisqu'il n'y a ni d'où, ni où on puisse le comparer. Ayant compris ceci : que le noménal ne peut être traité comme le phénoménal, il n'y a aucun besoin de pratiquer le transfert de conscience.}%ref à ajouter.
+\item Si le bien des autres seulement est recherché dans tout ce que l'on fait, il est inutile de chercher un bénéfice pour soi-même\footnote{L'humanité étant un organisme unique au travers duquel l'Esprit-Unique trouve sa plus haute expression sur terre, quoique puisse faire l'un de ses membres à un autre de ses membres, que l'action soit bonne ou mauvaise, elle touche inévitablement tous les membres. Il est dit aussi au sens chrétien : faire du bien aux autres est faire du bien à soi-même.}.
+\end{enumerate}
+Telles sont les dix choses superflues.
+
+\section{Les dix choses les plus précieuses}
+\begin{enumerate}[1.-]
+\item Une existence humaine libre et bien douée est plus précieuse que des myriades d'existences non humaines dans l'un quelconque des six états d'existence\footnote{Les six états ou régions de l'existence du Saṃsāra sont : 1) monde des \textit{déva}; 2) monde des \textit{asura} (titans); 3) monde humain; 4) monde des brutes; 5) monde des \textit{preta} (esprits malheureux); 6) monde des enfers.}.
+\item Un Sage est plus précieux qu'un multitude de personnes irreligieuses et attachées au monde.
+\item Une vérité ésotérique est plus précieuse que d'innombrables doctrines exotériques.
+\item Un aperçu momentané de Divine Sagesse, né dans la méditation, est plus précieux que n'importe quelle somme de savoir obtenu simplement en écoutant ou pensant à des enseignements religieux.
+\item La plus petite parcelle de mérite dédiée au bien des autres est plus précieuse que n'importe quelle somme de mérite dédiée à son propre bien.
+\item Expérimenter, même momentanément, le Samādhi dans lequel tous les processus de pensée sont suspendus est plus précieux que d'expérimenter sans arrêt le Samādhi ou les processus de pensée sont encore actifs\footnote{Il y a quatre stage de dhyāna ou Samādhi (méditation profonde). Le plus élevé de ces états est celui où le yogin expérimente ce bonheur extatique qui est atteint dans la réalisation de la condition primordiale non modifiée de l'esprit. Cet état est appelé État Réel étant vide de tout processus de formation de pensée sangsarique de l'esprit dans son aspect défini ou modifié. Au stage le plus inférieur ou premier stage de Samādhi dans lequel la complète cessation de ces processus de pensée n'a pas été atteinte, le yogin a l'expérience d'une sorte d'extase incomparablement inférieure que les novices doivent se garder de confondre avec la plus élevée.}. %REF
+\item Ressentir, même un seul moment, la joie du Nirvāṇa est plus précieuse que d'innombrables actions intéressées des sens.
+\item La plus petite des bonnes actions faite sans égoïsme est plus précieuse que d'innombrables actions intéressées.
+\item La renonciation à toute chose du monde (maison, famille, amis, propriétés, renom, durée de la vie, et même santé) est plus précieuse que le don d'inconcevables et immenses richesses du monde en charité.
+\item Une vie passée en quête de l'Illumination est plus précieuse que toutes les vies d'un éon passées en poursuites mondaines.
+\end{enumerate}
+Telles sont les dix choses les plus précieuses.
+
+\section{Les dix choses équivalentes}
+\begin{enumerate}[1.-]
+\item Pour celui qui est sincèrement dévoué à la vie religieuse, il est égal de s'abstenir des activités du monde ou non\footnote{Ce qui veut dire, ainsi que la « \textit{Bhagavad-Gītā} » l'enseigne pour celui qui s'est sincèrement dévoué à la vie religieuse et est entièrement libéré de l'attachement aux fruits de ses actions dans le monde, cela revient au même s'il abstient des activités du monde ou non, vu que un tel désintéressement ne produit aucun résultat karmique}.
+\item Pour celui qui a réalisé la nature transcendantale de l'esprit, il est pareil de méditer ou ne pas le faire\footnote{Le but de la méditation en yoga est de réaliser que seul l'esprit est réel et que le véritable ou primordial état d'esprit est cet état de quiétude mentale dénué de tout processus de pensée qui est expérimenté dans le plus haut Samādhi; une fois ceci atteint, le but de la méditation étant rempli, elle n'est plus nécessaire.}.
+\item Pour celui qui est libre d'attachement aux luxes mondains, il est pareil de pratiquer l'ascétisme ou non.
+\item Pour celui qui a réalisé la Réalité, il est pareil de demeurer sur une montagne isolée ou d'aller et venir (ainsi qu'un bhikṣu).
+\item Pour celui qui a atteint la maitrise de l'esprit, il est pareil de partager les plaisirs du monde ou non.
+\item Pour celui qui est doué de la plénitude de la compassion, il est pareil de pratiquer la méditation dans la solitude ou de travailler pour le bien des autres dans le sein de la société.
+\item Pour celui dont l'humilité et la foi (envers son \textit{guru}) sont inébranlables, il est pareil de demeurer avec son \textit{guru} ou non.
+\item Pour celui qui comprend absolument les enseignements qu'il a reçus, il est pareil de rencontrer la bonne ou la mauvaise fortune.
+\item Pour celui qui a abandonné la vie du monde et s'est adonné à la pratique des Vérités Spirituelles, il est pareil d'observer ou non les codes de conduites conventionnels\footnote{Dans ses relations avec la société des humaines, le yogin est libre de suivre les usages conventionnels ou de ne pas le faire. Ce qui la multitude considère comme moral peut lui sembler immoral et vice versa. (Voir le chant de Milarepa concernant ce qui est honteux et ce qui ne l'est pas : « \textit{Tibet's Great Yogi Milarepa} » (p.p. 226-227)}.
+\item Pour celui qui a atteint la Sublime Sagesse, il est pareil d'être capable ou non d'exercer des pouvoirs miraculeux.
+\end{enumerate}
+Telles sont les dix choses équivalentes.
+
+\section{Les dix vertus du saint dharma\footnote{Suivant l'École du Sud, le Dharma (Pali : Dhamma) comprend non seulement les Écritures mais aussi leur étude et leur pratique dans le but d'atteindre le Nirvāṇa (Pali : Nibbāṇa).} (ou docrine)}
+\begin{enumerate}[1.-]
+\item Le fait qu'ont été portés à la connaissance des hommes : les Dix actes pieux\footnote{Qui sont les opposés des dix actes impies. Il en est trois du corps: Sauver la vie, être chaste, être charitable; quatre de la parole : Dire la vérité, établir la Paix, être poli dans ses paroles, et faire des actes religieux; trois de l'esprit : être bienveillant, souhaiter du bien aux autres, avoir de la modestie alliée à de la foi.}, les Six \textit{Pāramitā}\footnote{Les Six \textit{Pāramitā} (Vertus Illimitées) sont : la Charité illimitée, la Moralité, la Patience, l'Energie, la Méditation, la Sagesse. Dans le Canon Pāli les Pāramitā mentionnées sont dix : la Charité, la Moralité, le Renoncement, le Savoir, l'Energie, la Tolérance, la Sincérité, la bonne Volonté, l'Amour et la Sérénité.} les divers enseignements concernant la Réalité et la Perfection, les Quatre Nobles Vérités\footnote{Les Quatres Nobles Vérités enseignées par le Bouddha peuvent être énoncées ainsi : 1) l'existence dans le Saṃsāra (univers transitoire et phénoménal) est inséparable d'avec la Souffrance ou le Chagrin; 2) La cause de la Souffrance est le Désir et la Convoitise pour cette existence dans le Saṃsāra; 3) la Cessation de la Souffrance est atteinte par la conquête et la destruction du Désir et de la Convoitise pour l'existence dans le Saṃsāra; 4) Le Sentier de la Cessation de la Souffrance est le Noble Sentier Octuple.}, les quatre Stages de Dhyāna\footnote{}, les Quatres Stage d'existence Sans Forme\footnote{Littéralement les Quatre Unions Arūpa (Sans Forme). Être né dans l'un de ces mondes ou l'existence est sans corps et sans forme, c'est être unis avec eux. Ces mondes sont les quatre cieux les plus élevés sous l'influence du dieu Brahmā et connus comme les plus hauts Brahmāloka (Royaumes de Brahmā). Ils se nomment : 1) Ākāśāntvāyātana (Royaume où la conscience existe dans l'espace infini), 2) Vijñānānantyāyatana (royaume où la conscience existe dans l'état infini), 3) Akiñcanyāyatana (royaume où la conscience existe libérée de l'état infini), 4) Naivasaṃjñāna Saṃjñāyatana (royaume de conscience où n'existe ni perception ni non-perception). Ces quatre royaumes représentent quatre stages progressifs dans le plus haut processus évolutif afin de vider la conscience de ses plu subtils objets sangsariques par le moyen de la méditation yogique et par ce moyen atteindre les plus hautes conditions de l'existence sangsarique préparant à l'atteinte du Nirvāṇa. Dans le premier état la conscience n'a aucun objet sur lequel se concentrer, sauf l'espace infini. Dans le second, la conscience dépasse l'espace infini comme objet. Dans le troisième, la conscience dépasse ce second stage et devient ainsi libre de toute action de pensée ou processus de pensée et ceci est l'un des buts les plus élevés du yoga. Dans le quatrième état, la conscience existe de soi-même et par soi-même sans exercer soit la perception, soit la non-perception dans la plus profonde quiétude du Samādhi. Ces quatre états de conscience qui sont parmi ce qui peut être atteint de plus élevé dans le Saṃsāra, sont atteints dans les transes du yoga induites par la profonde méditation. Ils sont si transcendantaux que le yogin dirigé sans sagesse peut confondre leur réalisation avec celle du Nirvāṇa. Le prince Gautama avant d'atteindre l'état de Bouddha, étudia et pratiqua le Yoga appartenant aux quatre États de conscience sans-forme sous deux gurus Ālāra et Uddaka, puis les abandonna car il découvrit qu'un tel yoga ne menait pas au Nirvāṇa. (Voir Aryaparyesana (la Sainte Recherche) et \textit{Sutta Majhima Nikāya, I 164-6).}} et les Deux Sentiers Mystiques\footnote{Suivant le Mahāyāna, il existe le sentier inférieur menant aux quatre états d'existence Sans Forme et aux quatre mondes célestes, tel que Sukhāvatī le Paradis de l'Ouest du Dhyānī Bouddha Amitābha, et le sentier supérieur menant au Nirvāṇa et dans lequel le Saṃsāra est surpassé.} du développement spirituel et de la libération, montre la vertu du Saint Dharma.
+\item Le fait que se sont développés dans le Saṃsāra des Princes et des Bhramines spirituellement illuminés\footnote{La plupart des grands instructeurs religieux de l'Inde ont été d'origine royale comme le Bouddha Gautama ou Brahmanique comme Aśvaghosa, Nārārjuna, Tolopa et bien d'autres qui furent des douddhistes éminents. Le Bouddhisme tient qui le Bouddha historique Gautama n'en est qu'un dans la longue seccession des Bouddhas et que Gautama n'a fait que retransmettre les enseignements ayant existés depuis des temps sans commencement. La conséquence directe en est que, parceque durant les éons passés des êtres ont pratiqué ces enseignements vénérables basés sur des vérités réalisables, il y a eu des hommes et des \textit{deva} évolués et illuminés et ce fait prouve la vertu de ces enseignements réunis dans les Écritures Bouddhiques sous le nom de Dharma.} parmi les hommes, et les quatre grands Gardiens\footnote{Ceux-ci sont les quatre puissances célestes qui gardent les quatre quartiers de l'Univers des forces destructives du mal, les quatre grands gardiens du Dharma et de l'Humanité : Dhṛtarāṣṭra garde l'Est et on lui a assigné la couleur blanche, Virūḍhaka garde le Sud et sa couleur symbolique est verte, le gardien rouge de l'Ouest est Virūpākśa et le gardien jaune du Nord est Vaiśravana.}, les six ordres de \textit{deva} des paradis sensoriels\footnote{Les six paradis des sens qui ,avec la Terre constituent la Région des Sans (Sansc. : \textit{Kāmadhātu) la plus base des trois Régions (Sansc.: Trīlokya) dans laquelle les Bouddhistes divisent le Cosmos.})}, les dix-sept ordre de dieux des mondes des formes\footnote{Les déités habitant les dix sept cieux de Brahmā qui constituent la région de la forme (Sansc. : Rūpadhātu) la seconde des trois régions où l'existence et la forme sont libérées des sens.}, les quatre ordres de dieux des mondes sans forme\footnote{Les déités habitant les quatre cieux de Brahmā les plus élevés où l'existence est non-seulement libérée des sens mais aussi de la forme. Ces cieux (nommés plus haut) consistuent avec le ciel Akaniśṭḥa (Tib. : Og-min) l'état du Saṃsāra le plus élevé la Region du sans forme (Sanscrit : Arūpadhātu), la plus élevée des trois Régions. Au-dessus, est l'état supra-cosmique au-delà de tous les cieux, enfers et mondes de l'existence du Saṃsāra, le Non-né, le Non-crée : le Nirvāṇa. Le stūpa (Tib. : Ch'orten) symbolise ésotériquement la voie vers le Nirvāṇa au travers de ces trois Régions.}, montre la vertu du Saint Dharma.
+\item Le fait que se sont élevés dans le monde ceux qui sont entrés dans le Courant, ceux qui ne retourneront à la mort qu'une fois, ceux qui ont passé au-delà de la nécessité d'une existence future\footnote{Ces trois gradations d'être humains correspondent aux trois étapes vers l'état d'Arhant (ou de sainteté au sens Bouddhique) préparant à l'Illumination complète de l'état de Bouddha. «Entré dans le courant » (Sansc. : \textit{Srotaāpatti}) qui implique l'acceptation de la Doctrine du Bouddha est le premier pas du néophyte dans la voie du  Nirvāṇa. « Celui qui ne revient à naître qu'une fois » (Sanc. : \textit{Sakridāgāmin}) a fait le deuxième pas. « Celui qui ne revient pas » (ne renaîtra pas) (Sanscrit : \textit{Anāgāmin}) a franchi le troisème pas et atteignant l'état d'Arhant passe normalement dans le Nirvāṇa jusqu'à ce que tous les êtres animés soient entrés dans la Voie qu'il a parcourue, il devient alors un Bodhisattva (Être illuminé) qui consciemment reprend corps comme une incarnation divine dans le Niṛmāṇakāya. Comme Bodhisattva, il peut demeurer dans le Saṃsāra pendant des éons sans nombre et ainsi renforcer le Mur de garde (de pouvoir spirituel) qui protège leur émancipation finale. Suivant le Conon Pali, celui qui est Srotaāpatti renaîtra pour le moins une fois, mais pas plus de sept fois, dans l'un ou l'autre des états de Kāmadhātu. Un Sakridāgāmin renaîtra une seule fois dans l'un des Kāmadhātu, et un Anāgāmin ne renaîtra dans aucun des deux.} les Arhants, et les Bouddhas ayant l'Illumination personnelle et les Bouddhas Omniscients\footnote{Un Bouddha ayant l'Illumination personelle (Sanscrit : \textit{Oratyeka-Bouddha}) n'enseigne pas la doctrine publiquement, mais rayonne seulement sur ceux qui viennent en contact personnel avec lui, le Bouddha Omniscient, tel que le Bouddha Gautama, prêche largement la Doctrine aux dieux et aux hommes.}, montre la vertu du Saint Dharma.
+\item Le fait que ceux qui ont atteint l'Illumination Bodhique sont capables de revenir dans le monde comme incarnations divines et de travailler à la délivrance de l'humanité et de tous les êtres vivants jusqu'au temps de la dissolution physique de l'univers, montre la vertu du Saint Dharma\footnote{C'est le Saint Dharma seulement qui a révélé à l'humanité le chemin Bodhique et l'enseignement suprême, ceux qui ont gagné le droit d'être libérés des existences du monde renoncent à ce droit pour que leur Divine Sagesse et leur expérience ne soient pas perdues mais s'emploient à cette fin sublime de guider tous les êtres illuminés à ce même stage d'émancipation.}
+\item Le fait qu'il existe, produites par la bienveillance qui englobe tout des Bodhisattvas, des influences spirituelles protectrices qui rendent possible la délivrance des hommes et de tous les êtres, montre la vertu du Saint Dharma\footnote{En ayant choisi la voie de la Bienveillance Infinie, les Bodhisattvas ont projeté dans le monde de l'existence du Saṃsāra de subtiles influences vibratoires qui protègent tous les êtres vivants et rend possible leur progrès spirituel et leur illumination finale. Sans ces influences, l'humanité serait sans direction spirituelle et resterait l'esclave des illusions sensuelles et de l'obscurité mentale.}.
+\item Le fait que l'on peut expérimenter même dans les mondes d'existences malheureux des moments de bonheur résultat direct des petits actes de miséricorde accomplis alors que l'on était dans le monde humain, montre la vertu du Saint Dharma\footnote{L'enseignement Bouddhiste disant que les bons résultats des actes de miséricorde faits pendant la vie assistent un être, même dans les états malheureux d'après la mort, prouve la vertu du Saint Dharma.}
+\item Le fait que des hommes ayant des vies lourdement chargées ont renoncé à la vie mondaine et sont devenus des saints dignes de la vénération du monde, montre la vertu du Saint Dharma.
+\item Le fait que des hommes dont le lourd et mauvais karma les auraient condamnés à des souffrances sans fin après leur mort, se sont orienté vers la vie religieuse et ont atteint le Nirvāṇa, montre  la vertu du Saint Dharma.
+\item Le fait que quelqu'un même après avoir abandonné toute possession du monde, embrassé la vie religieuse, délaissé l'état de chef de famille, s'étant caché dans un ermitage retiré, est cependant recherché et pourvu de toutes les nécessités de la vie, montre la vertu du Saint Dharma.
+\end{enumerate}
+Telles sont les dix vertus du Saint Dharma.
+
+\section{Les dix expressions figurées\footnote{Cette suite de nénégation concernant la Vérité est probablement inspirée par la \textit{\prajnaparamita} canonique sur laquelle le Livre VII de ce présent ouvrage est basé.}}
+\begin{enumerate}[1.-]
+\item Comme la Vérité-Base ne peut être décrite (mais doit être réalisée en \samadhi), l'expression Vérité-Base est purement figurée\footnote{La Vérité-Base qui est synonyme du Dharma-\kaya (ou Divin corps de Vérité) est la Vérité entière dans son aspect primordial sans modification. Le Yoga, la science de l'Esprit (ou Vérité) consiste en trois divisions: La Vérité-Base, le Sentier (ou méthode d'attendre la réalisation) et le Fruit (ou réalisation elle-même).}.
+\item Comme il n'y a ni « moyen de traverser » ni « celui qui traverse » le Sentier, l'expression Sentier est purement figurée\footnote{Le Sentier est simplement une métaphore descriptive de la méthode de réalisation de la croissance et du progrès spirituel.}.
+\item Comme il n'y a ni vie, ni voyant de l'État Vrai, l'expression État Vrai est purement figurée\footnote{L'État Vrai réalisable dans le plus pur \samadhi est dans la réflection microscopique un état ou l'esprit non modifié par le processus de la pensée ressemble dans sa quiétude à l'océan immobile, toutes les portes de la perception sont closes. Il se fait une complète oblitération de l'univers matériel des phénomènes, l'esprit atteint sa propre condition naturelle de tranquillité absolue. L'esprit microcosmique se met au diapason de l'esprit macroscopique. Par là, est atteinte la connaissance que, dans l'État Vrai, il n'y a ni vue, ni voyant, qui tous les concepts limités sont en réalité non-existants, que toutes les dualités deviennent unités et qu'il n'y a qu'une Réalité, l'Esprit cosmique primordial.}.
+\item Comme il n'y a ni réjouissance, ni « celui qui est réjoui » dans l'État Naturel, l'expression État Naturel est purement figurée\footnote{L'État Naturel se réfère à l'état de l'esprit atteint également dans le \samadhi uni avec l'État Vrai et l'État Pur. Là, il est réalisé, il n'y a réellement ni réjouissance, ni celui qui se réjouit, ni actions, ni faiseur d'actions et toutes choses objectives sont aussi irréelles que des rêves. Dès lors, plutôt que de vivre ainsi que la multitude à la poursuite d'illusions on doit choisir le Sentier des Bodhisattvas les Seigneurs de Compassion et travailler à l'émancipation des êtres liés par le Karma à la Roue de l'Ignorance.}.
+\item Comme il n'y a ni observance des voeux ni « celui qui observe » les voeux, ces expressions sont purement figurées.
+\item Comme il n'y a ni accumulation, ni accumulateur de mérites, l'expression « Double Mérite » \footnote{Le mérite Causal qui est le fruit des actes charitables appelé aussi mérite temporel, et le Mérite résultant qui provient de la supra-abondance du Mérite Causal est appelé Mérite Spirituel} est purement figurée. %ref à ajouter
+\item Comme il n'y a ni exécution, ni exécuteur d'actions, l'expression le « Double Obscurcissement » est purement figurée\footnote{L'obscurcissement de l'intelligence résultant des passions mauvaises et l'obscurcissement de l'intelligence résultant des croyances fausses telle que la croyance à un soi immortel ou une âme, ou celle qui consiste à croire vraies les apparences phénoménales.}.
+\item Comme il n'y a ni renonciation, ni renonçant (à l'existence du monde), l'expression « existence du monde » est purement figurée.
+\item Comme il n'y a ni obtention, ni « celui obtenant » (le résultat des actions), l'expression « résultats des actions » est purement figurée.
+\end{enumerate}
+Telles sont les Dix Expressions figurées\footnote{Tous ces aphorismes ou négations reposent sur la Doctrine Bodhique : la personnalité est transitoire, l'immortalité personnelle (ou d'une âme) est inconcevable pour celui qui atteint la Vue juste. L'esprit microcosmique, reflet de l'esprit macroscopique (qui seul est éternel), cesse d'être microcosmique ou limité quand il est immergé dans l'extase produit par le haut \samadhi. Il n'y a plus alors de personnalité, qui obtient, qui renonce, qui agit, qui accumule des mérites, qui médite dans l'État Pur, qui contemple l'État Vrai, qui traverse le Sentier et tout l'état d'esprit illusoire créant les concepts est oblitéré. Le langage humain est essentiellement un moyen permettant à l'homme de communiquer avec l'homme en termes basés sur des expériences communes à tous les hommes existants dans l'univers des sens, mais son emploi pour décrire des expériences en dehors des sens ne peut jamais être autre que figuré.}.
+
+\section{Les dix grandes réalisations joyeuses}
+\begin{enumerate}[1.-]
+\item C'est une grande joie de réaliser que l'esprit de tous les êtres animés est inséparable de l'Esprit Universel\footnote{Ou le Dharma-\kaya, le divin corps de vérité considéré comme Esprit Universel}.
+\item C'est une grande joie de réaliser que la Réalité Fondamentale est sans qualité\footnote{Les qualités sont purement sangsariques ou de l'univers phénoménal. À la Réalité fondamentale à « Cela qui est » aucune caractéristique ne peut être appliquée, en elle toutes choses sangsariques, toutes qualités, toutes conditions, toutes dualités se fondent en une transcendantale union.}.
+\item C'est une grande joie de réaliser que dans l'infinie Connaissance de la Réalité au-delà de la pensée, toutes différenciations du \samsara sont inexistantes\footnote{Dans la connaissance (ou réalisation) de la Réalité toutes vérités partielles ou relatives sont reconnues comme parties de la Vérité Une et aucunes différenciations ne sont possibles telles que celles qui mènent à établir des oppositions entre des religions ou des sectes qui sont peut-être chacune en possession partielle de quelque Vérité.}.
+\item C'est une grande joie de réaliser que dans l'état de l'esprit primondial (ou incrée) il n'existe aucun processus d'esprit perturbateur\footnote{}. %REF
+\item C'est une grande joie de réaliser que dans le Dharma-\kaya où l'esprit et la matière sont inséparables, il n'existe ni personne qui tient des théories, ni support de théories\footnote{À celui qui cherche la Vérité, que ce soit dans le royaume de la science physique ou spirituelle, les théories sont essentielles, mais lorsqu'une vérité ou un fait s'est trouvé confirmé toutes théories le concernant deviennent inutiles. En conséquence dans le Dharma-\kaya ou État de Vérité fondamentale aucune théorie n'est nécessaire ni concevable. C'est l'état de Parfaite Illumination des Bouddhas dans le \nirvana.}.
+\item C'est une grande joie de réaliser que dans le Sambhoga-\kaya de compassion émané de lui-même, il n'existe ni naissance, ni mort, ni transition, ni rien qui change\footnote{Le Sambhoga-\kaya, ou divin corps parfaitement doué, symbolise l'état de communion spirituelle (semblable à la communion des saints) dans lequel tous les Bodhisattvas existent lorsqu'ils ne paraissent pas en incarnations sur terre. Ainsi le Dharma-\kaya dont il est un premier reflet émané de lui-même, le Sambhiga-\kaya est un état où la naissance, la mort, le changement, sont surpassés.}.
+\item C'est une grande joie de réaliser que dans le divin Nirmāṇa-\kaya émané de lui-même, il n'existe auxun sentiment de dualité\footnote{Le Nirmāṇa-\kaya ou divin corps d'incarnation, le second reflet du Dharma-\kaya, est le corps, ou état spirituel, dans lequel demeurent les grands instructeurs ou les Bodhisattvas incarnés sur terre. Le Dharma-\kaya étant au-delà du royaume de la perception sensorielle sangsarique ne peut être perçu sensoriellement, donc l'esprit du yogin, lorsqu'il le réalise, cesse d'exister comme esprit limité ou une chose indépendante de lui. En d'autres termes, dans l'état transcendental de l'extase du \samadhi ou le Dharma-\kaya est réalisé, l'esprit limité atteint l'union subtile avec sa source le Dharma-\kaya. De même, dans l'état de Nirmāṇa-\kaya, le divin et l'animé, l'esprit et la matière, le nouménal et le phénoménal et toutes les dualités se fondent en union. Et cela le Bodhisattva, lorsqu'il est dans son corps de chair le sent instinctivement, il sait que ni lui-même ni aucun objet sensoriel ou objectif n'a une existence séparée ou interdépendante en dehors du Dharma-\kaya. Pour un exposé de la Doctrine Mahāyāniste des trois corps divins (Sanscrit : \textit{Tri-\kaya}). (Voir \textit{Livre des Morts Tibétain}, p.p. 9-13).}.
+\item C'est une grande joie de réaliser que dans le Dharma-Cakra, il n'existe aucune fondation pour la doctrine de l'âme\footnote{Les vérités proclamées par le Boudha sont symbolisées par le Dharma-Cakra, la Roue de la Loi qu'il a mise en mouvement dans son premier sermon à ses disciples au Parc des gazelles à Bénarès. Au temps de l'Illuminé et longtemps avant lui, la croyance animique en un égo ou « soi » permanent, en une âme inchangeable (Sansc. : \textit{\atman}), en une immortalité personnelle était aussi répendue aux Indes et dans l'Extrême-Orient qu'elle l'est aujourd'hui en Europe et en Amérique. Le Bouddha dénia toute validité à cette doctrine et nulle part dans les Écriture Bouddhiques ou Dharma, soit de l'¢cole du Sud soit de celle du Nord, on ne trouve le moindre élément ou support de cette croyance.}.
+\item C'est une grande joie de réaliser que dans la Compassion Divine et Illimitée (des Bodhisattvas) il n'existe aucune restriction ni aucune trace de partialité.
+\item C'est une grande joie de réaliser que le Sentier de la Lébération que tous les Bouddhas ont parcouru est toujours existant, toujours semblable et toujours ouvert à ceux qui sont prêts à y entrer.
+\end{enumerate}
+Telles sont les dix grandes réalisations joyeuses.
+
+\section*{conclusion}
+Ce-dessus est contenue l'essence des paroles immaculées des grands \textit{guru}, qui ont été doués de Divine Sagesse; et de la Déesse Tara et autre divinités. Parmi ces grands Maîtres étaient le glorieux Dīpāṇkara\footnote{Dīpāṇkara (Śri-jñana) ainsi qu'il est appelé ici, est le nom Hindou de Atīśa, le premier des grands réformateurs de Lamaïsme, né au Bengale dans la famille royale de Gaur en 980 A.D. et venu au Tibet en 1038. Ayant été professeur de philosophie au monastère de Vikramaśila en Magadha, il apporta au Tibet une grande part d'enseignement nouveau surtout relatif au Yoga et au Tantrisme. Son oeuvre principale, comme réformateur, fut de renforcer les règles de célibat et de haute moralité pour les prêtres.\\Atīśa s'associa avec la secte appelée les Kahdampas ou « ceux qui sont liés par la Règle ». Trois cent cinquante ans plus tard, avec le second des grands réformateurs, Tsong-Khapa, un nom de terroir signifiant « né dans la contrée des oignons », son pays natal dans la région de l'Amdo, province Nord-Est du Tibet près de la frontière chinoise, la secte des Kahdampas devint la Gelugpa ou « Ceux qui suivent l'ordre vertueux » qui constitue maintenant l'église régulière du Tibet.} le père spirituel et ses successeurs qui furent divinement désignés pour répandre la Doctrine dans cette terre Nordique des neiges; et des grandieux \textit{guru} de l'École Kahdampa. Il y avait aussi ce roi des Yogins, Milarepa à qui fut légué le savoir du Sage Marpa de Lhobrak et des autres; et les saints illustres : Naropa et Maitripa, de la noble terre des Indes, dont la splendeur égalait celle du Soleil et de la Lune; et les disciples de tous ceux-ci.
+Ici fini \textit{«  Le Sentier Suprême, le Rosaire des Pierres Précieuses ».}
+
+\begin{center}
+(Colophon)\\
+\end{center}
+Le traité fut consigné en manuscrit par Digom Sönan Rinchen\footnote{Litt. : Hbri-sgom Bsod-nams Rin-chen, signifiant : Le méditant au précieux mérite de la cave de la yak femelle.} qui avait une connaissance approfondie des enseignements des Kahdampas et des Chagchenpas\footnote{Ceux qui suivent les enseignements du yoga contenus dans la philosophie du \textit{Chag-chen}, dont les principaux éléments forment le sujet du Livre II de cet ouvrage.}.
+Il est crû généralement que le grand \textit{guru Gampopa} (connu aussi comme Dvagpo-Lharje) a compilé cet ouvrage et l'a donné avec cette injonction : « J'adjure ces générations de dévots encore à naître qui honoreront ma mémoire et regretteront ne pas m'avoir rencontré en personne, d'étudier ceci : \textit{Le Sentier Suprême, le Rosaire des Pierres Précieuses} et aussi \textit{Le Précieux Ornement de Libération} en même temps que d'autres traités religieux. Le résultat sera équivalent à ce qu'est actuellement une rencontre avec moi-même ».
+Puisse ce livre irradier la vertu divine et puisse-t-il être bienfaisant.
+\vspace{1cm}
+\begin{center}
+\textsc{mangalam\footnote{Mot tibétain-sancrit dans le texte voulant dire littéralement Bénédiction ou Bonheur, ou si on le rapporte au livre : Puisse la bénédiction être sur lui.}}
+\end{center}
+
+
+\end{document}
+
+
+
